@@ -1,19 +1,3 @@
-<?php 
-error_reporting(E_ALL); 
-ini_set('display_errors', TRUE);
-
-require_once "dbconnect.php";
-
-$sql = "SELECT * FROM bigLibrary";
-
-$result = mysqli_query($connect, $sql);
-if(mysqli_num_rows($result) == 0){
-    $rows = "No result";
-} else {
-    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,11 +5,27 @@ if(mysqli_num_rows($result) == 0){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Big Library</title>
+    <title>Details</title>
 </head>
 <body>
-    <!-- navbar begin -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <?php 
+    error_reporting(E_ALL); 
+    ini_set('display_errors', TRUE);
+    
+
+    require_once "dbconnect.php";
+    if(isset($_GET["id"]) && !empty ($_GET["id"])){
+
+        $id = $_GET["id"];
+        $sql = "SELECT * FROM bigLibrary WHERE id = $id";
+
+        
+        $result = mysqli_query($connect,$sql);
+        $row = mysqli_fetch_assoc($result);        
+    ?>
+
+ <!-- navbar begin -->
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="index.php"><img src="picture/logo" alt="" width="240px" height="80px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,42 +55,29 @@ if(mysqli_num_rows($result) == 0){
 </nav>
     <!-- navbar end -->
 
-    <!-- heroimage begin  -->
-    <img src="picture/heroimage.jpg" class="img-fluid" alt="...">
-    <!-- heroimage end  -->
-    <!-- main begin -->
-    <div class="container">
-        <div class="text-center mt-5 mb-5">
-            <a href="create.php" class="btn btn-primary fs-4 mb-4">Create a media</a>
-            <h1>All media: </h1>
-        </div>
-        <div class="row row-cols-4">
-            <?php 
-                if(is_array($rows)){
+<!-- card begin  -->
+<div class="d-flex justify-content-center mt-5">
+<div class="card text-center d-flex" style="width: 18rem;">
+<img src="<?= $row["image"] ?>" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><?= $row["title"] ?></h5>
+    <p class="card-text">Written by <?= $row["authorFirstName"]." ". $row["authorLastName"] ?></p>
+    <p class="card-text"><?= $row["shortDescription"] ?></p>
+    <p class="card-text">Type: <?= $row["type"] ?></p>
+    <p class="card-text">Published by <?= $row["publisherName"]." in ". $row["publisherAddress"]. " on the ". $row["publishDate"] ?></p>
+    <p class="card-text">ISBN: <?= $row["isbnCode"] ?></p>
+    <p class="card-text">Stock: <?= $row["status"] ?></p>
+    <a href="index.php" class="btn btn-primary">Home</a>
+  </div>
+</div>
+</div>
+<!-- card end  -->
 
-                
-                foreach($rows as $row){ 
-            ?>
-            <div class="col">
-                <div class="card mb-5 text-center" style="width: 18rem;">
-                    <img src="<?= $row["image"] ?>" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $row["title"] ?></h5>
-                        <p class="card-text"><?= $row["shortDescription"]?></p>
-                        <a href="details.php?id=<?= $row["id"] ?>" class="btn btn-primary">Show Media</a>
-                        <a href="edit.php?id=<?= $row["id"] ?>" class="btn btn-warning">Update</a>
-                    </div>
-                </div>
-            </div>
-            <?php }
-            }
-                ?>
-        </div>
-    </div>
-    <!-- main end -->
-
-
-
+    
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
+<?php }
+else {
+    header("Location: index.php");
+} ?>
