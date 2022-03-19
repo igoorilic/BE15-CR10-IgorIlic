@@ -79,7 +79,7 @@ if(mysqli_num_rows($result) == 0){
                         <p class="card-text"><?= $row["shortDescription"]?></p>
                         <a href="details.php?id=<?= $row["id"] ?>" class="btn btn-primary">Show Media</a>
                         <div class="mt-2">
-                        <a href="edit.php?id=<?= $row["id"] ?>" class="btn btn-warning">Update</a>
+                        <a href="update.php?id=<?= $row["id"] ?>" class="btn btn-warning">Update</a>
                         <a href="delete.php?id=<?= $row["id"] ?>" class="btn btn-danger">Delete</a>
                         </div>
                     </div>

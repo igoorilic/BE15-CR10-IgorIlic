@@ -18,9 +18,6 @@ if($_POST) {
     $publishingDate = $_POST["publishingDate"];
     $status = $_POST["status"];
     $uploadError = '';
-    var_dump($picture);
-
-
 
     $sql = ("INSERT INTO bigLibrary (title, image, isbnCode, shortDescription, type, authorFirstName, authorLastName, publisherName, publisherAddress, publishDate, status) VALUE ('$title', '$picture->fileName', $isbnCode, '$shortDescription', '$type', '$authorFirstName', '$authorLastName', '$publisherName', '$publisherAddress', '$publishingDate', $status)");
 
