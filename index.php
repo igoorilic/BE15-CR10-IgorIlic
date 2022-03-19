@@ -73,12 +73,15 @@ if(mysqli_num_rows($result) == 0){
             ?>
             <div class="col">
                 <div class="card mb-5 text-center" style="width: 18rem;">
-                    <img src="<?= $row["image"] ?>" class="card-img-top" alt="...">
+                    <img src="<?= $row["image"] ?>" class="card-img-top" alt="..." height="400px">
                     <div class="card-body">
                         <h5 class="card-title"><?= $row["title"] ?></h5>
                         <p class="card-text"><?= $row["shortDescription"]?></p>
                         <a href="details.php?id=<?= $row["id"] ?>" class="btn btn-primary">Show Media</a>
+                        <div class="mt-2">
                         <a href="edit.php?id=<?= $row["id"] ?>" class="btn btn-warning">Update</a>
+                        <a href="delete.php?id=<?= $row["id"] ?>" class="btn btn-danger">Delete</a>
+                        </div>
                     </div>
                 </div>
             </div>
