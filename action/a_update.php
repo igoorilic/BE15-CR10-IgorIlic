@@ -23,9 +23,9 @@ if ($_POST) {
     $picture = file_upload($_FILES['picture']);
     if($picture->error===0){
         ($_POST["picture"]=="picture.jpeg")?: unlink("../picture/$_POST[picture]");           
-        $sql = "UPDATE bigLibrary SET title = '$title', image = '$picture->fileName', isbnCode = $isbnCotde, type = '$ype', authorFirstName = '$authorFirstName', authorLastName = '$authorLastName', publisherName = '$publisherName', publisherAddress = '$publisherAddress', publishDate = '$publishingDate', status = '$status'  WHERE id = {$id}";
+        $sql = "UPDATE bigLibrary SET title = '$title', image = '$picture->fileName', isbnCode = $isbnCotde, type = '$ype', authorFirstName = '$authorFirstName', authorLastName = '$authorLastName', publisherName = '$publisherName', publisherAddress = '$publisherAddress', publishDate = '$publishingDate', status = '$status', shortDescription = '$shortDescription'  WHERE id = {$id}";
     }else{
-        $sql = "UPDATE bigLibrary SET title = '$title', isbnCode = $isbnCode, type = '$type', authorFirstName = '$authorFirstName', authorLastName = '$authorLastName', publisherName = '$publisherName', publisherAddress = '$publisherAddress', publishDate = '$publishingDate', status = '$status' WHERE id = {$id}";}    
+        $sql = "UPDATE bigLibrary SET title = '$title', isbnCode = $isbnCode, type = '$type', authorFirstName = '$authorFirstName', authorLastName = '$authorLastName', publisherName = '$publisherName', publisherAddress = '$publisherAddress', publishDate = '$publishingDate', status = '$status', shortDescription = '$shortDescription' WHERE id = {$id}";}    
     if (mysqli_query($connect, $sql) === TRUE) {
         $class = "success";
         $message = "The record was successfully updated";

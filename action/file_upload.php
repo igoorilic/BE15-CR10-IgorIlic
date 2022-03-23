@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL); 
+ini_set('display_errors', TRUE);
 
 function file_upload($picture) { // $_FILES["picture"] - collects the values of "picture"
     // this object will carry status from file upload
